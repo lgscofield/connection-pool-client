@@ -208,8 +208,7 @@ public class RedisShardedConnPool extends PoolBase<ShardedJedis> implements Conn
 
         @Override
         public ShardedJedis createConnection() throws Exception {
-            ShardedJedis jedis = new ShardedJedis(shards, algo, keyTagPattern);
-            return jedis;
+            return new ShardedJedis(shards, algo, keyTagPattern);
         }
     }
 

@@ -121,7 +121,8 @@ class RedisConnectionFactory implements ConnectionFactory<Jedis> {
             String connectionHost = jedis.getClient().getHost();
             int connectionPort = jedis.getClient().getPort();
             return ((hostAndPort.getHost().equals(connectionHost)) && (hostAndPort.getPort() == connectionPort) && (jedis.isConnected()) && (jedis.ping().equals("PONG")));
-        } catch (Exception e) {
+        } catch (Exception ignored) {
+            ignored.printStackTrace();
         }
         return false;
     }

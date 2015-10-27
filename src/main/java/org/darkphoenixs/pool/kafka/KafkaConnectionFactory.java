@@ -68,9 +68,7 @@ class KafkaConnectionFactory implements ConnectionFactory<Producer<byte[], byte[
 
     @Override
     public PooledObject<Producer<byte[], byte[]>> makeObject() throws Exception {
-
         Producer<byte[], byte[]> producer = this.createConnection();
-
         return new DefaultPooledObject<>(producer);
     }
 
@@ -100,7 +98,6 @@ class KafkaConnectionFactory implements ConnectionFactory<Producer<byte[], byte[
 
     @Override
     public Producer<byte[], byte[]> createConnection() throws Exception {
-        Producer<byte[], byte[]> producer = new Producer<>(config);
-        return producer;
+        return new Producer<>(config);
     }
 }

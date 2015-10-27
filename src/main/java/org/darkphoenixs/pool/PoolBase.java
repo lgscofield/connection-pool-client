@@ -102,8 +102,7 @@ public abstract class PoolBase<T> implements Closeable, Serializable {
             try {
                 internalPool.returnObject(resource);
             } catch (Exception e) {
-                throw new ConnectionException(
-                        "Could not return the resource to the pool", e);
+                throw new ConnectionException("Could not return the resource to the pool", e);
             }
         }
     }
@@ -119,8 +118,7 @@ public abstract class PoolBase<T> implements Closeable, Serializable {
             try {
                 internalPool.invalidateObject(resource);
             } catch (Exception e) {
-                throw new ConnectionException(
-                        "Could not invalidate the resource to the pool", e);
+                throw new ConnectionException("Could not invalidate the resource to the pool", e);
             }
         }
     }

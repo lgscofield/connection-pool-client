@@ -150,7 +150,6 @@ public class RedisConnectionPool extends PoolBase<Jedis> implements ConnectionPo
 
     @Override
     public Jedis getConnection() {
-
         return super.getResource();
     }
 

@@ -63,9 +63,7 @@ class HbaseConnectionFactory implements ConnectionFactory<Connection> {
 
     @Override
     public PooledObject<Connection> makeObject() throws Exception {
-
         Connection connection = this.createConnection();
-
         return new DefaultPooledObject<>(connection);
     }
 
@@ -80,10 +78,7 @@ class HbaseConnectionFactory implements ConnectionFactory<Connection> {
     @Override
     public boolean validateObject(PooledObject<Connection> p) {
         Connection connection = p.getObject();
-        if (connection != null) {
-            return ((!connection.isAborted()) && (!connection.isClosed()));
-        }
-        return false;
+        return connection != null && ((!connection.isAborted()) && (!connection.isClosed()));
     }
 
     @Override
@@ -98,8 +93,7 @@ class HbaseConnectionFactory implements ConnectionFactory<Connection> {
 
     @Override
     public Connection createConnection() throws Exception {
-        Connection connection = org.apache.hadoop.hbase.client.ConnectionFactory.createConnection(hadoopConfiguration);
-        return connection;
+        return org.apache.hadoop.hbase.client.ConnectionFactory.createConnection(hadoopConfiguration);
     }
 
 }
