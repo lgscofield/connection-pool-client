@@ -9,38 +9,38 @@ import org.darkphoenixs.pool.kafka.KafkaConnectionPool;
 import org.junit.Test;
 
 public class KafkaTest {
-	
-	@Test
-	public void test() throws Exception {
 
-		PoolConfig config = new PoolConfig();
-		config.setMaxTotal(20);
-		config.setMaxIdle(5);
-		config.setMaxWaitMillis(1000);
-		config.setTestOnBorrow(true);
+    @Test
+    public void test() throws Exception {
 
-		Properties props = new Properties();
-		props.setProperty("metadata.broker.list", "localhost:9092");
-		props.setProperty("producer.type", "async");
-		props.setProperty("request.required.acks", "0");
-		props.setProperty("compression.codec", "snappy");
-		props.setProperty("batch.num.messages", "200");
+        PoolConfig config = new PoolConfig();
+        config.setMaxTotal(20);
+        config.setMaxIdle(5);
+        config.setMaxWaitMillis(1000);
+        config.setTestOnBorrow(true);
 
-		KafkaConnectionPool pool = new KafkaConnectionPool(config, props);
+        Properties props = new Properties();
+        props.setProperty("metadata.broker.list", "localhost:9092");
+        props.setProperty("producer.type", "async");
+        props.setProperty("request.required.acks", "0");
+        props.setProperty("compression.codec", "snappy");
+        props.setProperty("batch.num.messages", "200");
 
-		for (int i = 0; i < 1000; i++) {
+        KafkaConnectionPool pool = new KafkaConnectionPool(config, props);
 
-			Producer<byte[], byte[]> producer = pool.getConnection();
+        for (int i = 0; i < 1000; i++) {
 
-			KeyedMessage<byte[], byte[]> message = new KeyedMessage<>(
-					"QUEUE.TEST", String.valueOf(i).getBytes(), String.valueOf(
-							"Test" + i).getBytes());
+            Producer<byte[], byte[]> producer = pool.getConnection();
 
-			producer.send(message);
+            KeyedMessage<byte[], byte[]> message = new KeyedMessage<>(
+                    "QUEUE.TEST", String.valueOf(i).getBytes(), String.valueOf(
+                    "Test" + i).getBytes());
 
-			pool.returnConnection(producer);
-		}
+            producer.send(message);
 
-		pool.close();
-	}
+            pool.returnConnection(producer);
+        }
+
+        pool.close();
+    }
 }
